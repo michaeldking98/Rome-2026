@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rome 2026, Michael King</title>
+  <style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f7f4;
+    color: #222;
+    }
+    header {
+    text-align: center;
+    padding: 1rem 1.5rem 1rem;
+    background-color: white; 
+    border-bottom: 1px solid #eee;
+    }
+    header h1 {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #1f1f1f;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+    .title {
+    text-align: center;
+    padding: 3rem 3rem 3rem;
+    background-color: white;
+    }
+    .title h2 {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 2rem;
+    margin: 0;
+    color: #1f1f1f;
+    font-weight: 500;
+    letter-spacing: 10px;
+    text-align: center;
+    }
+    .slider-container {
+    width: 100%;
+    overflow: hidden;
+    background: #000;
+    position: relative;
+    }
+    .slider {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    }
+    .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+    z-index: 1;
+    }
+    .slide.active {
+    opacity: 1;
+    z-index: 2;
+    }
+    .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    }
+    .dots {
+    position: absolute;
+    bottom: 50px;           /* adjust this if needed */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    text-align: center;
+    }
+    .dot {
+    display: inline-block;
+    width: 9px;             /* smaller size */
+    height: 9px;
+    margin: 0 7px;
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.8);   /* white outline */
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    }
+    .dot.active {
+    background-color: white;
+    border: 1.5px solid white;
+    transform: scale(1.35);
+    }
+    .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;           /* fully transparent */
+    color: rgba(255, 255, 255, 0.75);  /* light white arrow */
+    border: none;
+    font-size: 3rem;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 15;
+    transition: all 0.3s ease;
+    user-select: none;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);   /* subtle text shadow for visibility */
+    }
+    .arrow:hover {
+    color: white;
+    transform: translateY(-50%) scale(1.15);
+    }
+    .arrow-left {
+    left: 40px;
+    }
+    .arrow-right {
+    right: 40px;
+    }
+  </style>
+</head>
+
+<body>
+  <header><h1>Michael King</h1></header> 
+  <div class="title">
+    <h2>Rome, 2026</h2>
+  </div>
+
+  <div class="slider-container">
+    <div class="slider" id="slider">
+        
+      <div class="slide">
+      <img src="photo1.jpg" alt="vatican">
+      </div>
+
+      <div class="slide">
+      <img src="photo2.jpg" alt="painting">
+      </div>
+
+      <div class="slide">
+      <img src="photo3.jpg" alt="ceiling">
+      </div>
+
+      <div class="slide">
+      <img src="photo4.jpg" alt="church">
+      </div>
+
+      <div class="slide">
+      <img src="photo5.jpg" alt="wall-painting">
+      </div>
+
+      <div class="slide">
+      <img src="photo6.jpg" alt="marble-entrance">
+      </div>
+
+      <div class="slide">
+      <img src="photo7.jpg" alt="river-view">
+      </div>
+
+      <div class="slide">
+      <img src="photo8.jpg" alt="basilica">
+      </div>
+    </div>
+    <div class="dots" id="dots"></div>
+    <button class="arrow arrow-left" id="prev">‹</button>
+    <button class="arrow arrow-right" id="next">›</button>
+  </div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dotsContainer = document.getElementById('dots');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  let currentIndex = 0;
+  const totalSlides = 8;
+
+  function createDots() {
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('span');
+      dot.classList.add('dot');
+      dot.addEventListener('click', () => {
+        currentIndex = i;
+        showSlide(currentIndex);
+      });
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  function showSlide(index) {
+    slides.forEach(slide => slide.classList.remove('active'));
+    slides[index].classList.add('active');
+
+    const dots = document.querySelectorAll('.dot');
+    dots.forEach(dot => dot.classList.remove('active'));
+    dots[index].classList.add('active');
+  }
+
+  // Button controls
+  prevBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+    showSlide(currentIndex);
+  });
+
+  nextBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % totalSlides;
+    showSlide(currentIndex);
+  });
+
+  // Auto fade
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % totalSlides;
+    showSlide(currentIndex);
+  }, 5000);
+
+  // Initialize
+  createDots();
+  showSlide(0);
+</script>
+</body>
+</html>
