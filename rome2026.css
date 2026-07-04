@@ -10,7 +10,7 @@
     }
     header {
     text-align: center;
-    padding: 1rem 1.5rem 1rem;
+    padding: 1rem 1.5rem;
     background-color: white; 
     border-bottom: 1px solid #eee;
     }
@@ -55,12 +55,10 @@
     width: 100%;
     height: 100%;
     opacity: 0;
-    transition: opacity 1.2s ease-in-out;
-    z-index: 1;
+    transition: opacity 1.2s ease-in-out;   
     }
     .slide.active {
     opacity: 1;
-    z-index: 2;
     }
     .slide img {
     width: 100%;
@@ -91,7 +89,7 @@
     .dot.active {
     background-color: white;
     border: 1.5px solid white;
-    transform: scale(1.35);
+    transform: scale(1.4);
     }
     .arrow {
     position: absolute;
@@ -101,8 +99,8 @@
     color: rgba(255, 255, 255, 0.75);  /* light white arrow */
     border: none;
     font-size: 3rem;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -110,15 +108,41 @@
     z-index: 15;
     transition: all 0.3s ease;
     user-select: none;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);   /* subtle text shadow for visibility */
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);   /* subtle text shadow for visibility */
     }
     .arrow:hover {
     color: white;
     transform: translateY(-50%) scale(1.15);
     }
     .arrow-left {
-    left: 40px;
+    left: 15px;
     }
     .arrow-right {
-    right: 40px;
+    right: 15px;
     }
+
+   @media (max-width: 768px) {
+    .title h2 {
+        font-size: 1.6rem;
+        letter-spacing: 4px;
+    }
+    
+    .arrow {
+        font-size: 2rem;
+        width: 45px;
+        height: 45px;
+    }
+    
+    .arrow-left { left: 10px; }
+    .arrow-right { right: 10px; }
+    
+    .dots {
+        bottom: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.3rem;
+    }
+}
